@@ -17,9 +17,18 @@ def get_fact():
     return facts[0].getText()
 
 
+def get_response_url(url, input_data):
+    response = requests.post(url, data=input_data)
+
+    return response.url
+
+
 @app.route('/')
 def home():
-    return "FILL ME!"
+    fact = get_fact().strip()
+    url = get_response_url('https://hidden-journey-62459.herokuapp.com/piglatinize/', {'input_text': fact})
+    
+    return ('<a href={0}>{0}</a>'.format(url))
 
 
 if __name__ == "__main__":
